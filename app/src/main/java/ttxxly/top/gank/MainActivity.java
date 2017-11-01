@@ -82,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDrawerLayoutLeft() {
         mDrawerLayoutLeft.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            /**
+             * @param item
+             * @return
+             */
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -97,7 +102,9 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         break;
                 }
-                mDrawerLayout.closeDrawer(GravityCompat.START); //关闭抽屉
+
+                //关闭抽屉
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
