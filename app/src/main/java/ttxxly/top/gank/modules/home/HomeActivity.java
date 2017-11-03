@@ -1,4 +1,4 @@
-package ttxxly.top.gank;
+package ttxxly.top.gank.modules.home;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,12 +11,11 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import ttxxly.top.gank.R;
 
 /**
  * 整个应用的主Activity
@@ -24,7 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * @author ttxxly
  * @date 2017年10月29日15:34:50
  */
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     /**
      * 首页头像
