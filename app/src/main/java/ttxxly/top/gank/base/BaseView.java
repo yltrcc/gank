@@ -1,9 +1,13 @@
 package ttxxly.top.gank.base;
 
 /**
- * BaseView
- * Created by bakumon on 2016/12/6.
+ * Description:
+ * date: 2017/11/03 14:05
+ * Email: ttxxly@gmail.com
+ *
+ * @author ttxxly
  */
-public interface BaseView {
+public interface BaseView<T> {
 
+    void setPresenter(T presenter);
 }

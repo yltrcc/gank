@@ -7,5 +7,21 @@ package ttxxly.top.gank.modules.launcher;
  * Email: ttxxly@gmail.com
  */
 
-public class LauncherPresenter {
+public class LauncherPresenter implements LauncherContract.Presenter{
+
+    private LauncherContract.View mView;
+
+    public LauncherPresenter(LauncherContract.View view) {
+        mView = view;
+    }
+
+    @Override
+    public void start() {
+        mView.loadImg();
+    }
+
+    @Override
+    public void stop() {
+
+    }
 }

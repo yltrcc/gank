@@ -22,13 +22,14 @@ public class LauncherActivity extends AppCompatActivity implements LauncherContr
 
     private ImageView mIvLauncher;
     private boolean isResume;
+    private LauncherContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
         mIvLauncher = findViewById(R.id.iv_launcher);
-
+        mPresenter.start();
     }
 
     @Override
@@ -81,5 +82,11 @@ public class LauncherActivity extends AppCompatActivity implements LauncherContr
     protected void onResume() {
         super.onResume();
         isResume = true;
+        mPresenter.stop();
+    }
+
+    @Override
+    public void setPresenter(LauncherContract.Presenter presenter) {
+        mPresenter = presenter;
     }
 }

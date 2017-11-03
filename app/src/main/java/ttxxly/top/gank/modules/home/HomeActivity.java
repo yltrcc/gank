@@ -17,11 +17,13 @@ import android.widget.LinearLayout;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ttxxly.top.gank.R;
 
+
 /**
- * 整个应用的主Activity
+ * Description: APP 首页
+ * date: 2017/11/03 12:01
+ * Email: ttxxly@gmail.com
  *
  * @author ttxxly
- * @date 2017年10月29日15:34:50
  */
 public class HomeActivity extends AppCompatActivity {
 

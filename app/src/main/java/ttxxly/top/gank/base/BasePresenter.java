@@ -1,13 +1,15 @@
 package ttxxly.top.gank.base;
 
 /**
- * BasePresenter
+ * Description:
+ * date: 2017-11-03 14:03
+ * Email: ttxxly@gmail.com
  *
  * @author ttxxly
  */
 public interface BasePresenter {
 
-    void subscribe();
+    void start();
 
-    void unsubscribe();
+    void stop();
 }
