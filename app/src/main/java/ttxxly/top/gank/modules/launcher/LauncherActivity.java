@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Callback;
@@ -20,9 +22,9 @@ import ttxxly.top.gank.modules.home.HomeActivity;
  */
 public class LauncherActivity extends AppCompatActivity implements LauncherContract.View{
 
-    private ImageView mIvLauncher;
     private boolean isResume;
-    private LauncherContract.Presenter mPresenter;
+    private LauncherContract.Presenter mPresenter = new LauncherPresenter(this);
+    private ImageView mIvLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class LauncherActivity extends AppCompatActivity implements LauncherContr
         mIvLauncher = findViewById(R.id.iv_launcher);
         mPresenter.start();
     }
+
 
     @Override
     public void goHomeActivity() {
@@ -49,7 +52,9 @@ public class LauncherActivity extends AppCompatActivity implements LauncherContr
                     .into(mIvLauncher, new Callback() {
                         @Override
                         public void onSuccess() {
+                            Log.i("启动页图片", "成功");
                             Handler handler = new Handler();
+                            //1.5 秒后執行
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -59,15 +64,17 @@ public class LauncherActivity extends AppCompatActivity implements LauncherContr
                                     }
                                     goHomeActivity();
                                 }
-                            }, 1200);
+                            }, 1500);
                         }
 
                         @Override
                         public void onError() {
+                            Log.i("启动页图片", "失败1");
                             goHomeActivity();
                         }
                     });
         } catch (Exception e) {
+            Log.i("启动页图片", "失败2");
             goHomeActivity();
         }
     }
@@ -76,17 +83,12 @@ public class LauncherActivity extends AppCompatActivity implements LauncherContr
     protected void onPause() {
         super.onPause();
         isResume = false;
+        mPresenter.stop();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         isResume = true;
-        mPresenter.stop();
-    }
-
-    @Override
-    public void setPresenter(LauncherContract.Presenter presenter) {
-        mPresenter = presenter;
     }
 }
