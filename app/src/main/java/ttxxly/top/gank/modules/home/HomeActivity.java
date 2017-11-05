@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +26,7 @@ import ttxxly.top.gank.R;
  *
  * @author ttxxly
  */
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements HomeContract.View{
 
     /**
      * 首页头像
@@ -55,7 +56,8 @@ public class HomeActivity extends AppCompatActivity {
     /**
      * ViewPager，容器，填充 Fragment
      */
-    private ViewPager mViewPager;
+    private ViewPager vp_home;
+    private HomeContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,22 +68,25 @@ public class HomeActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerLayoutLeft = findViewById(R.id.drawer_layout_left);
         mHomePage = findViewById(R.id.home_page);
-        mViewPager = findViewById(R.id.vp_home);
+        vp_home = findViewById(R.id.vp_home);
 
-        if (mPortrait != null) {
-            setPortrait();
-        }
-        if (mDrawerLayout != null) {
-            setDrawerLayout();
-        }
-        if (mDrawerLayoutLeft != null) {
-            setDrawerLayoutLeft();
-        }
-
+        mPresenter = new HomePresenter(this);
+        mPresenter.start();
     }
 
 
-    private void setDrawerLayoutLeft() {
+    @Override
+    public void setPortrait() {
+        mPortrait.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+    }
+
+    @Override
+    public void setDrawerLayoutLeft() {
         mDrawerLayoutLeft.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             /**
@@ -103,7 +108,6 @@ public class HomeActivity extends AppCompatActivity {
                     default:
                         break;
                 }
-
                 //关闭抽屉
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;
@@ -111,10 +115,8 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * 抽屉的滑动事件监听
-     */
-    private void setDrawerLayout() {
+    @Override
+    public void setDrawerLayout() {
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -142,19 +144,4 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
-    /**
-     * 点击头像，打开侧边抽屉
-     */
-    private void setPortrait() {
-        mPortrait.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDrawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-    }
-
-
-
 }

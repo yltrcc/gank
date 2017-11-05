@@ -13,7 +13,7 @@ import ttxxly.top.gank.base.BaseView;
  */
 public class LauncherContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseView {
 
         /**
          * 跳转主页面

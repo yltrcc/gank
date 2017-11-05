@@ -7,6 +7,6 @@ package ttxxly.top.gank.base;
  *
  * @author ttxxly
  */
-public interface BaseView<T> {
+public interface BaseView {
 
 }
