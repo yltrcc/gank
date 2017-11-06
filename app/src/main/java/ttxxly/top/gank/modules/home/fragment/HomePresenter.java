@@ -1,6 +1,4 @@
-package ttxxly.top.gank.modules.home;
-
-import java.util.Set;
+package ttxxly.top.gank.modules.home.fragment;
 
 /**
  * Description:
@@ -19,19 +17,10 @@ public class HomePresenter implements HomeContract.Presenter{
     }
     @Override
     public void start() {
-        mView.setDrawerLayout();
-        mView.setDrawerLayoutLeft();
-        mView.setPortrait();
-        setRecyclerView();
     }
 
     @Override
     public void stop() {
-
-    }
-
-    @Override
-    public void setRecyclerView() {
 
     }
 }

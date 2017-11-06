@@ -1,6 +1,4 @@
-package ttxxly.top.gank.modules.home;
-
-import android.view.View;
+package ttxxly.top.gank.modules.home.fragment;
 
 import ttxxly.top.gank.base.BasePresenter;
 import ttxxly.top.gank.base.BaseView;
@@ -16,14 +14,8 @@ import ttxxly.top.gank.base.BaseView;
 public class HomeContract {
 
     interface View extends BaseView{
-
-        void setPortrait();
-        void setDrawerLayoutLeft();
-        void setDrawerLayout();
     }
 
     interface Presenter extends BasePresenter{
-
-        void setRecyclerView();
     }
 }

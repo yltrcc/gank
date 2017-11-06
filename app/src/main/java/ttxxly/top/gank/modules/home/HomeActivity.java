@@ -8,15 +8,18 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import ttxxly.top.gank.R;
+import ttxxly.top.gank.modules.home.fragment.HomeFragment;
+import ttxxly.top.gank.modules.home.fragment.ViewPagerAdapter;
 
 
 /**
@@ -26,7 +29,7 @@ import ttxxly.top.gank.R;
  *
  * @author ttxxly
  */
-public class HomeActivity extends AppCompatActivity implements HomeContract.View{
+public class HomeActivity extends AppCompatActivity{
 
     /**
      * 首页头像
@@ -57,25 +60,43 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
      * ViewPager，容器，填充 Fragment
      */
     private ViewPager vp_home;
-    private HomeContract.Presenter mPresenter;
+
+    /**
+     * Fragment 容器
+     */
+    private ArrayList<android.support.v4.app.Fragment> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout);
 
+        //设置头像
         mPortrait = findViewById(R.id.portrait);
+        if (mPortrait != null) {
+            setPortrait();
+        }
+
+        //设置抽屉导航
         mDrawerLayout = findViewById(R.id.drawer_layout);
+        if (mDrawerLayout != null) {
+            setDrawerListener();
+        }
+        //设置抽屉菜单事件侦听
         mDrawerLayoutLeft = findViewById(R.id.drawer_layout_left);
+        if (mDrawerLayoutLeft != null) {
+            setNavigationItemSelectedListener();
+        }
+        //设置ViewPager
         mHomePage = findViewById(R.id.home_page);
         vp_home = findViewById(R.id.vp_home);
+        list = new ArrayList<>();
+        list.add(new HomeFragment());
+        vp_home.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), list));
 
-        mPresenter = new HomePresenter(this);
-        mPresenter.start();
     }
 
 
-    @Override
     public void setPortrait() {
         mPortrait.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,8 +106,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         });
     }
 
-    @Override
-    public void setDrawerLayoutLeft() {
+    public void setNavigationItemSelectedListener() {
         mDrawerLayoutLeft.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             /**
@@ -115,8 +135,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         });
     }
 
-    @Override
-    public void setDrawerLayout() {
+    public void setDrawerListener() {
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
