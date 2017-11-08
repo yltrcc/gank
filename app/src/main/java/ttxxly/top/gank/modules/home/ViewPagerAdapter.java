@@ -1,4 +1,4 @@
-package ttxxly.top.gank.modules.home.fragment;
+package ttxxly.top.gank.modules.home;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
