@@ -13,9 +13,11 @@
         android:background="#336666">
 
         <ImageView
+            android:id="@+id/iv_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_webview_delete"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"/>
 
         <TextView
@@ -24,6 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
+            android:maxEms="15"
+            android:lines="1"
+            android:ellipsize="end"
             android:textSize="18sp"
             tools:text="这是标题" />
     </FrameLayout>

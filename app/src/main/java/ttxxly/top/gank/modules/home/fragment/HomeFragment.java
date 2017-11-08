@@ -1,6 +1,7 @@
 package ttxxly.top.gank.modules.home.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import java.util.Map;
 
 import ttxxly.top.gank.R;
 import ttxxly.top.gank.entity.DailyData;
+import ttxxly.top.gank.modules.details.DailyDetailsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -129,14 +131,19 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         //设置分割线
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mContainer.getContext(),
                 DividerItemDecoration.VERTICAL_LIST));
-        /**
-         * RecycleView 点击事件
-         */
+        //RecycleView 点击事件
         homeAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                //首页 Item click
                 Toast.makeText(getContext(), homeAdapter.getDailyData().getResults().get
                         (position).getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContainer.getContext(), DailyDetailsActivity.class);
+                intent.putExtra("title", homeAdapter.getDailyData().getResults().get(position)
+                        .getTitle());
+                intent.putExtra("content", homeAdapter.getDailyData().getResults().get(position)
+                        .getContent());
+                startActivity(intent);
             }
         });
     }
