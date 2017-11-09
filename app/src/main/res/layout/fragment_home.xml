@@ -3,7 +3,7 @@
     android:id="@+id/root_fragment_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ttxxly.top.gank.modules.home.fragment.HomeFragment">
+    tools:context="ttxxly.top.gank.modules.home.home_fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView

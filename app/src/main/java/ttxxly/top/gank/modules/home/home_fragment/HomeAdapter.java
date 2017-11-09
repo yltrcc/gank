@@ -1,4 +1,4 @@
-package ttxxly.top.gank.modules.home.fragment;
+package ttxxly.top.gank.modules.home.home_fragment;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

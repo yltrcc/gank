@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ttxxly.top.gank.modules.details.DailyDetailsActivity">
+    tools:context="ttxxly.top.gank.modules.daily.DailyGankActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#336666">
+        android:background="@color/colorToolBar">
 
         <ImageView
-            android:id="@+id/iv_delete"
+            android:id="@+id/iv_daily_gank_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_webview_delete"
@@ -21,7 +21,7 @@
             android:layout_gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_daily_gank_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -32,12 +32,19 @@
             android:textSize="18sp"
             tools:text="这是标题" />
     </FrameLayout>
-
-
-    <WebView
-        android:id="@+id/wb_daily_detail"
+    <ImageView
+        android:id="@+id/iv_daily_gank_girl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF" />
+        android:layout_height="200dp"
+        android:contentDescription="girl"
+        android:fitsSystemWindows="true"
+        android:scaleType="centerCrop"
+        tools:src="@mipmap/girl"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_daily_gank"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_daily_gank"/>
 </LinearLayout>

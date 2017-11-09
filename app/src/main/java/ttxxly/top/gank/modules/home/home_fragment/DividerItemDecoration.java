@@ -1,4 +1,4 @@
-package ttxxly.top.gank.modules.home.fragment;
+package ttxxly.top.gank.modules.home.home_fragment;
 
 import android.content.Context;
 import android.content.res.TypedArray;

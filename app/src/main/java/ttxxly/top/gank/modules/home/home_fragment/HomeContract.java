@@ -1,6 +1,4 @@
-package ttxxly.top.gank.modules.home.fragment;
-
-import android.media.DrmInitData;
+package ttxxly.top.gank.modules.home.home_fragment;
 
 import ttxxly.top.gank.base.BasePresenter;
 import ttxxly.top.gank.base.BaseView;

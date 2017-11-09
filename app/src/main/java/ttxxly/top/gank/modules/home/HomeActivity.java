@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ttxxly.top.gank.R;
-import ttxxly.top.gank.modules.home.fragment.HomeFragment;
+import ttxxly.top.gank.modules.home.home_fragment.HomeFragment;
 
 
 /**

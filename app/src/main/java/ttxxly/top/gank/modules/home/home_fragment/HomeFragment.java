@@ -1,4 +1,4 @@
-package ttxxly.top.gank.modules.home.fragment;
+package ttxxly.top.gank.modules.home.home_fragment;
 
 
 import android.content.Intent;
@@ -9,22 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.security.PrivateKey;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import ttxxly.top.gank.R;
 import ttxxly.top.gank.entity.DailyData;
-import ttxxly.top.gank.modules.details.DailyDetailsActivity;
+import ttxxly.top.gank.modules.web.WebActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -138,7 +131,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
                 //首页 Item click
                 Toast.makeText(getContext(), homeAdapter.getDailyData().getResults().get
                         (position).getTitle(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContainer.getContext(), DailyDetailsActivity.class);
+                Intent intent = new Intent(mContainer.getContext(), WebActivity.class);
                 intent.putExtra("title", homeAdapter.getDailyData().getResults().get(position)
                         .getTitle());
                 intent.putExtra("content", homeAdapter.getDailyData().getResults().get(position)
