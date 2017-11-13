@@ -16,6 +16,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import ttxxly.top.gank.R;
+import ttxxly.top.gank.common.DividerItemDecoration;
 import ttxxly.top.gank.entity.DailyData;
 import ttxxly.top.gank.modules.web.WebActivity;
 
@@ -31,11 +32,6 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private HomePresenter presenter;
     private HomeAdapter homeAdapter;
 
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,6 +40,10 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mRecyclerView = view.findViewById(R.id.rv_fragment_home);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContainer.getContext()));
+        //设置分割线
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mContainer.getContext(),
+                DividerItemDecoration.VERTICAL_LIST));
         refreshLayout = view.findViewById(R.id.root_fragment_home);
 
         //设置逻辑操作，获取数据
@@ -120,10 +120,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
     @Override
     public void setRecycleViewListener() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContainer.getContext()));
-        //设置分割线
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(mContainer.getContext(),
-                DividerItemDecoration.VERTICAL_LIST));
+
         //RecycleView 点击事件
         homeAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
             @Override

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ttxxly.top.gank.R;
+import ttxxly.top.gank.modules.home.category_fragment.CategoryFragment;
 import ttxxly.top.gank.modules.home.home_fragment.HomeFragment;
 
 
@@ -91,8 +92,8 @@ public class HomeActivity extends AppCompatActivity{
         vp_home = findViewById(R.id.vp_home);
         list = new ArrayList<>();
         list.add(new HomeFragment());
+        list.add(new CategoryFragment());
         vp_home.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), list));
-
     }
 
 

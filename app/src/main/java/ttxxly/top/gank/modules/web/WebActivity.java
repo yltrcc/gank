@@ -62,7 +62,7 @@ public class WebActivity extends AppCompatActivity implements View.OnTouchListen
         //设置WebView属性，能够执行JavaScript脚本
         mWeb.getSettings().setJavaScriptEnabled(true);
         //JS交互
-        mWeb.addJavascriptInterface(new JsInterface(this), "imageClick");
+        mWeb.addJavascriptInterface(new JsInterface(this), "click");
         //设置可以支持缩放
         mWeb.getSettings().setSupportZoom(true);
         //设置使用内置缩放机制
