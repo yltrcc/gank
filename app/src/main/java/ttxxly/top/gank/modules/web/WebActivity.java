@@ -23,7 +23,7 @@ import java.util.List;
 import ttxxly.top.gank.R;
 import ttxxly.top.gank.modules.girl.GirlActivity;
 
-public class WebActivity extends AppCompatActivity implements View.OnTouchListener{
+public class WebActivity extends AppCompatActivity{
 
     private String title;
     private String content;
@@ -32,10 +32,7 @@ public class WebActivity extends AppCompatActivity implements View.OnTouchListen
     private WebView mWeb;
     private List<String> list;
     private String empty;
-    /**
-     * 点击的坐标位置
-     */
-    float x,y;
+    private int type;
 
 
     @Override
@@ -46,6 +43,7 @@ public class WebActivity extends AppCompatActivity implements View.OnTouchListen
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
         content = intent.getStringExtra("content");
+        type = intent.getIntExtra("type", 1);
         list = new ArrayList<>();
 
         mDelete = findViewById(R.id.iv_delete);
@@ -76,10 +74,16 @@ public class WebActivity extends AppCompatActivity implements View.OnTouchListen
         //清空缓存
         mWeb.clearCache(true);
         //加载 html 内容
-        content = getHtmlData(content);
-        Log.i("content", content);
-        mWeb.loadDataWithBaseURL(null, content, "text/html", "utf-8",
-                null);
+        if (type == 0) {
+            content = getHtmlData(content);
+            Log.i("content", content);
+            mWeb.loadDataWithBaseURL(null, content, "text/html", "utf-8",
+                    null);
+        }else if (type == 1) {
+            mWeb.loadUrl(content);
+        }
+
+
         //处理各种事件
         mWeb.setWebViewClient(new WebViewClient() {
             @Override
@@ -104,6 +108,7 @@ public class WebActivity extends AppCompatActivity implements View.OnTouchListen
             }
         });
     }
+
 
     class JsInterface {
         Context context;
@@ -137,67 +142,4 @@ public class WebActivity extends AppCompatActivity implements View.OnTouchListen
                 bodyHTML + "</body></html>";
     }
 
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mWeb.canGoBack()) {
-                if (list.size() > 1) {
-                    //重新加载之前的页面,这里为了让标题也能正常显示
-                    String url = list.get(list.size() - 2);
-                    empty = "about:blank";
-                    list.remove(list.size() - 1);
-                    if (list.size() > 0) {
-                        list.remove(list.size() - 1);
-                    }
-                    if (url.equals(empty)) {
-                        mWeb.loadDataWithBaseURL(null, content, "text/html", "utf-8",
-                                null);
-                    } else {
-                        mWeb.loadUrl(url);
-                    }
-                    return true;
-                }
-            }
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-
-
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-
-        Log.i("OnTouch", "事件相应了");
-        //通过webview的touch来响应web上的图片点击事件
-        //屏幕密度
-        float density = getResources().getDisplayMetrics().density;
-        //必须除以屏幕密度
-        float touchX = event.getX() / density;
-        float touchY = event.getY() / density;
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
-            v.performClick();
-            x = touchX;
-            y = touchY;
-        }
-
-        if(event.getAction() == MotionEvent.ACTION_UP){
-            float dx = Math.abs(touchX-x);
-            float dy = Math.abs(touchY-y);
-            if(dx<10.0/density&&dy<10.0/density){
-                clickImage(touchX,touchY);
-            }
-        }
-        return false;
-    }
-
-    private void clickImage(float touchX, float touchY) {
-        //通过触控的位置来获取图片URL
-        String js = "javascript:(function(){" +
-                "var  obj=document.elementFromPoint("+touchX+","+touchY+");"
-                +"if(obj.src!=null){"+ " window.imageClick.click(obj.src);}" +
-                "})()";
-        mWeb.loadUrl(js);
-    }
 }

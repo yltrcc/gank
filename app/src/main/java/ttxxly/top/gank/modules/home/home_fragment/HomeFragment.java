@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mContainer.getContext(),
                 DividerItemDecoration.VERTICAL_LIST));
         refreshLayout = view.findViewById(R.id.root_fragment_home);
+        refreshLayout.autoRefresh();
 
         //设置逻辑操作，获取数据
         presenter = new HomePresenter(this);
@@ -133,6 +134,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
                         .getTitle());
                 intent.putExtra("content", homeAdapter.getDailyData().getResults().get(position)
                         .getContent());
+                intent.putExtra("type", 0);
                 startActivity(intent);
             }
         });

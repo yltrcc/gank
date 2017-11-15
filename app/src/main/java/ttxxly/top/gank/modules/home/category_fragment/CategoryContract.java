@@ -14,19 +14,13 @@ import ttxxly.top.gank.entity.CategoryData;
 
 public class CategoryContract {
 
-    interface View extends BaseView{
-        void initAndroidData(CategoryData categorydata);
-        void initIosData(CategoryData categorydata);
-        void initWelfareData(CategoryData categorydata);
-        void initVideoData(CategoryData categorydata);
-        void initHtml5Data(CategoryData categorydata);
+    interface View extends BaseView {
+        void initData(CategoryData categorydata);
+        void addData(CategoryData categoryData);
     }
 
-    interface Presenter extends BasePresenter{
-        void getAndroidData();
-        void getIosData();
-        void getWelfareData();
-        void getVideoData();
-        void getHtml5Data();
+    interface Presenter extends BasePresenter {
+        void getData(int type, String category);
+
     }
 }
