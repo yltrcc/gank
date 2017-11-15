@@ -21,7 +21,8 @@
         <activity android:name=".modules.home.HomeActivity" />
         <activity android:name=".modules.web.WebActivity" />
         <activity android:name=".modules.daily.DailyGankActivity" />
-        <activity android:name=".modules.girl.GirlActivity"></activity>
+        <activity android:name=".modules.girl.GirlActivity" />
+        <activity android:name=".modules.home.search.SearchActivity"></activity>
     </application>
 
 </manifest>

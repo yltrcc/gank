@@ -77,5 +77,6 @@
         android:layout_height="80dp"
         android:scaleType="centerCrop"
         android:contentDescription="girl"
+        android:visibility="gone"
         tools:src="@mipmap/girl"/>
 </LinearLayout>
