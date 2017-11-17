@@ -1,4 +1,4 @@
-package ttxxly.top.gank.modules.home.search;
+package ttxxly.top.gank.modules.search;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

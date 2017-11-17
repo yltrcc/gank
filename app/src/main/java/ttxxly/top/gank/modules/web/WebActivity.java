@@ -2,10 +2,14 @@ package ttxxly.top.gank.modules.web;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -46,15 +50,48 @@ public class WebActivity extends AppCompatActivity{
         type = intent.getIntExtra("type", 1);
         list = new ArrayList<>();
 
-        mDelete = findViewById(R.id.iv_delete);
-        mDelete.setOnClickListener(new View.OnClickListener() {
+        Toolbar mToolbar = findViewById(R.id.toolbar_main);
+        mToolbar.setTitle(title);
+        //设置导航图标、添加菜单点击事件要在setSupportActionBar方法之后
+        setSupportActionBar(mToolbar);
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            //实现应用程序图标能够向上导航,也就是返回按钮，点击该按钮，系统会调用Activity带有android.R.id.home
+            // ID的onOptionsItemSelected()方法。
+            //特别注意一点就是，在setSupportActionBar方法之后
+            actionbar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case android.R.id.home:
+                        finish();
+                        break;
+                    case R.id.web_refresh:
+                        Toast.makeText(WebActivity.this, "你点击了刷新按钮！！", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.web_full_screen:
+                        Toast.makeText(WebActivity.this, "全屏浏览", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.web_share:
+                        Toast.makeText(WebActivity.this, "分享 !", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.web_copy:
+                        Toast.makeText(WebActivity.this, "复制链接 !", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.web_launch:
+                        Toast.makeText(WebActivity.this, "启动外部浏览器 !", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+                return true;
             }
         });
-        mTitle = findViewById(R.id.tv_title);
-        mTitle.setText(title);
+
+
         mWeb = findViewById(R.id.wb_daily_detail);
 
         //设置WebView属性，能够执行JavaScript脚本
@@ -141,5 +178,12 @@ public class WebActivity extends AppCompatActivity{
         return "<html>" + head + "<body style:'height:auto;max-width: 100%; width:auto;'>" +
                 bodyHTML + "</body></html>";
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_web, menu);
+        return true;
+    }
+
 
 }

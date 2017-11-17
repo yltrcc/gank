@@ -1,6 +1,7 @@
 package ttxxly.top.gank.modules.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,7 @@ import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import ttxxly.top.gank.R;
 import ttxxly.top.gank.modules.home.category_fragment.CategoryFragment;
 import ttxxly.top.gank.modules.home.home_fragment.HomeFragment;
+import ttxxly.top.gank.modules.search.SearchActivity;
 
 
 /**
@@ -29,7 +32,7 @@ import ttxxly.top.gank.modules.home.home_fragment.HomeFragment;
  *
  * @author ttxxly
  */
-public class HomeActivity extends AppCompatActivity{
+public class HomeActivity extends AppCompatActivity {
 
     /**
      * 首页头像
@@ -65,6 +68,7 @@ public class HomeActivity extends AppCompatActivity{
      * Fragment 容器
      */
     private ArrayList<android.support.v4.app.Fragment> list;
+    private ImageView search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,13 @@ public class HomeActivity extends AppCompatActivity{
             setPortrait();
         }
 
+        search = findViewById(R.id.iv_home_search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+            }
+        });
         //设置抽屉导航
         mDrawerLayout = findViewById(R.id.drawer_layout);
         if (mDrawerLayout != null) {
@@ -107,7 +118,8 @@ public class HomeActivity extends AppCompatActivity{
     }
 
     public void setNavigationItemSelectedListener() {
-        mDrawerLayoutLeft.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        mDrawerLayoutLeft.setNavigationItemSelectedListener(new NavigationView
+                .OnNavigationItemSelectedListener() {
 
             /**
              * @param item
@@ -142,9 +154,14 @@ public class HomeActivity extends AppCompatActivity{
                 isOpenDrawer = true;
                 //获取屏幕的宽高
                 WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-                Display display = manager.getDefaultDisplay();
-                //设置右面的布局位置  根据左面菜单的right作为右面布局的left   左面的right+屏幕的宽度（或者right的宽度这里是相等的）为右面布局的right
-                mHomePage.layout(mDrawerLayoutLeft.getRight(), 0, mDrawerLayoutLeft.getRight() + display.getWidth(), display.getHeight());
+                Display display = null;
+                if (manager != null) {
+                    display = manager.getDefaultDisplay();
+                }
+                //设置右面的布局位置  根据左面菜单的right作为右面布局的left
+                //左面的right+屏幕的宽度（或者right的宽度这里是相等的）为右面布局的right
+                mHomePage.layout(mDrawerLayoutLeft.getRight(), 0, mDrawerLayoutLeft.getRight() +
+                        display.getWidth(), display.getHeight());
             }
 
             @Override

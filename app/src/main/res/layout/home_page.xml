@@ -21,6 +21,7 @@
             android:src="@mipmap/portrait" />
 
         <ImageView
+            android:id="@+id/iv_home_search"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
