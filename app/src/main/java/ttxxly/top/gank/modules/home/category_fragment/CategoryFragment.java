@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 
@@ -69,5 +70,15 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void addData(CategoryData categoryData) {
         adapter.addCategoryData(categoryData);
+    }
+
+    @Override
+    public CategoryData getData() {
+        return adapter.getCategorydata();
+    }
+
+    @Override
+    public void setData(CategoryData categoryData) {
+        adapter.setCategorydata(categoryData);
     }
 }

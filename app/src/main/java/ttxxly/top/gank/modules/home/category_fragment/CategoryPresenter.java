@@ -14,6 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 import ttxxly.top.gank.data.remote.GankApi;
 import ttxxly.top.gank.data.remote.NetWork;
 import ttxxly.top.gank.entity.CategoryData;
+import ttxxly.top.gank.entity.DailyData;
 
 /**
  * Description:
@@ -26,9 +27,11 @@ import ttxxly.top.gank.entity.CategoryData;
 public class CategoryPresenter implements CategoryContract.Presenter {
 
     private CategoryContract.View view;
-    private List<String> list = new ArrayList<>();
+    private String[] title = {"Android", "iOS", "福利", "休息视频", "前端"};
 
     private int tp = 0;
+    boolean flag = false;
+    private CategoryData.ResultsBean bean;
 
     public CategoryPresenter(CategoryContract.View view) {
         this.view = view;
@@ -36,12 +39,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
     @Override
     public void start() {
-        list.add("Android");
-        list.add("iOS");
-        list.add("福利");
-        list.add("休息视频");
-        list.add("前端");
-        getData(tp, list.get(tp));
+        getData(tp, title[tp]);
 
     }
 
@@ -66,15 +64,25 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
                     @Override
                     public void onNext(CategoryData categorydata) {
+
                         Log.i("数据请求", "请求成功！！！");
                         if (tp == 0) {
                             view.initData(categorydata);
                         } else {
                             view.addData(categorydata);
                         }
+
+                        CategoryData data = view.getData();
+                        if (!flag) {
+                            data.getResults().add(0, addBean(0));
+                            flag = true;
+                        }
+                        data.getResults().add((1+tp*11), addBean(tp));
+                        view.setData(data);
+
                         tp++;
                         if (tp < 5) {
-                            getData(tp, list.get(tp));
+                            getData(tp, title[tp]);
                         }
                     }
 
@@ -90,6 +98,12 @@ public class CategoryPresenter implements CategoryContract.Presenter {
                 });
     }
 
-
+    public CategoryData.ResultsBean addBean(int tp) {
+        CategoryData.ResultsBean rb = new CategoryData.ResultsBean();
+        rb.setDesc(title[tp]);
+        rb.setCreatedAt("1");
+        rb.setType("1");
+        return rb;
+    }
 
 }

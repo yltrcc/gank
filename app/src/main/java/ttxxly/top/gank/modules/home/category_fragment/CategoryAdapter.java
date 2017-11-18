@@ -1,18 +1,20 @@
 package ttxxly.top.gank.modules.home.category_fragment;
 
 
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import retrofit2.http.HEAD;
 import ttxxly.top.gank.R;
 import ttxxly.top.gank.entity.CategoryData;
 
@@ -24,7 +26,7 @@ import ttxxly.top.gank.entity.CategoryData;
  * @author ttxxly
  */
 
-public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private CategoryData categorydata;
     private ViewGroup mContainer = null;
@@ -32,6 +34,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private boolean flag;
     private static int TYPE_NO_TITLE = 0;
     private static int TYPE_WITH_TITLE = 1;
+    private static int TYPE_HEADER = 3;
 
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -44,7 +47,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public CategoryAdapter(CategoryData categorydata, ViewGroup container) {
         this.categorydata = categorydata;
-        Log.i("size", categorydata.getResults().size()+"");
+        Log.i("size", categorydata.getResults().size() + "");
         this.mContainer = container;
     }
 
@@ -52,15 +55,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_NO_TITLE) {
             View view = LayoutInflater.from(
-                    mContainer.getContext()).inflate(R.layout.item_fragment_custom, parent,
+                    mContainer.getContext()).inflate(R.layout.item_category_body, parent,
                     false);
             return new NoTitleHolder(view);
-        }
-        if (viewType == TYPE_WITH_TITLE) {
+        }else if (viewType == TYPE_WITH_TITLE) {
             View view = LayoutInflater.from(
-                    mContainer.getContext()).inflate(R.layout.item_fragment_custom_with_title, parent,
+                    mContainer.getContext()).inflate(R.layout.item_category_title, parent,
                     false);
             return new WithTitleHolder(view);
+        }else if (viewType == TYPE_HEADER) {
+            View view = LayoutInflater.from(
+                    mContainer.getContext()).inflate(R.layout.item_category_header, parent,
+                    false);
+            return new HeaderHolder(view);
         }
 
         return null;
@@ -68,27 +75,29 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.i("position"+position, ""+categorydata.getResults().get(position).getDesc());
         if (holder instanceof NoTitleHolder) {
             NoTitleHolder notitleHolder = (NoTitleHolder) holder;
             //绑定数据
             if (!categorydata.getResults().get(position).isEmptyTitle()) {
                 Log.i("title", categorydata.getResults().get(position).getDesc());
                 notitleHolder.title.setText(categorydata.getResults().get(position).getDesc());
-            }else {
+            } else {
                 notitleHolder.title.setText("It doesn't seem to have a title");
             }
 
             if (!categorydata.getResults().get(position).isEmptyWho()) {
                 Log.i("author", categorydata.getResults().get(position).getWho());
                 notitleHolder.author.setText(categorydata.getResults().get(position).getWho());
-            }else {
+            } else {
                 notitleHolder.author.setText("damajia");
             }
 
             if (!categorydata.getResults().get(position).isEmptyDate()) {
                 Log.i("date", categorydata.getResults().get(position).getPublishedAt());
-                notitleHolder.date.setText(categorydata.getResults().get(position).getPublishedAt());
-            }else {
+                notitleHolder.date.setText(categorydata.getResults().get(position).getPublishedAt
+                        ());
+            } else {
                 notitleHolder.date.setText("null");
             }
             if (!categorydata.getResults().get(position).isEmptyImg()) {
@@ -114,86 +123,38 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     Log.i("启动页图片", "失败2");
                     flag = false;
                 }
-                if (flag){
+                if (flag) {
                     notitleHolder.img.setVisibility(View.VISIBLE);
                 }
             }
-        }
-
-        if (holder instanceof WithTitleHolder) {
+        }else if (holder instanceof WithTitleHolder) {
             WithTitleHolder withTitleHolder = (WithTitleHolder) holder;
-            //设置Category
-            if (position % 10 == 0 ) {
-                if (position / 10 == 0) {
-                    withTitleHolder.category.setText("Android");
-                }else if (position / 10 == 1) {
-                    withTitleHolder.category.setText("Ios");
-                }else if (position / 10 == 2) {
-                    withTitleHolder.category.setText("福利");
-                }else if (position / 10 == 3) {
-                    withTitleHolder.category.setText("视频");
-                }else if (position / 10 == 4) {
-                    withTitleHolder.category.setText("前端");
-                }
-            }
-
-            //绑定数据
             if (!categorydata.getResults().get(position).isEmptyTitle()) {
                 Log.i("title", categorydata.getResults().get(position).getDesc());
                 withTitleHolder.title.setText(categorydata.getResults().get(position).getDesc());
-            }else {
+            } else {
                 withTitleHolder.title.setText("It doesn't seem to have a title");
             }
-
-            if (!categorydata.getResults().get(position).isEmptyWho()) {
-                Log.i("author", categorydata.getResults().get(position).getWho());
-                withTitleHolder.author.setText(categorydata.getResults().get(position).getWho());
-            }else {
-                withTitleHolder.author.setText("damajia");
-            }
-
-            if (!categorydata.getResults().get(position).isEmptyDate()) {
-                Log.i("date", categorydata.getResults().get(position).getPublishedAt());
-                withTitleHolder.date.setText(categorydata.getResults().get(position).getPublishedAt());
-            }else {
-                withTitleHolder.date.setText("null");
-            }
-            if (!categorydata.getResults().get(position).isEmptyImg()) {
-                String url = categorydata.getResults().get(position).getImages().get(0);
-                flag = false;
-                try {
-                    Picasso.with(mContainer.getContext())
-                            .load(url)
-                            .into(withTitleHolder.img, new Callback() {
-                                @Override
-                                public void onSuccess() {
-                                    Log.i("启动页图片", "成功");
-                                    flag = true;
-                                }
-
-                                @Override
-                                public void onError() {
-                                    Log.i("启动页图片", "失败1");
-                                    flag = false;
-                                }
-                            });
-                } catch (Exception e) {
-                    Log.i("启动页图片", "失败2");
-                    flag = false;
+        }else if (holder instanceof HeaderHolder) {
+            HeaderHolder headerHolder = (HeaderHolder) holder;
+            headerHolder.mAndroid.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContainer.getContext(), "Android",
+                            Toast.LENGTH_SHORT).show();
                 }
-                if (flag){
-                    withTitleHolder.img.setVisibility(View.VISIBLE);
-                }
-            }
+            });
         }
+
     }
 
     @Override
     public int getItemCount() {
+        Log.i("size", categorydata.getResults().size()+"");
         return categorydata.getResults().size();
     }
 
-    class NoTitleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class NoTitleHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
         private final TextView title;
@@ -217,21 +178,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         }
     }
-    class WithTitleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+    class WithTitleHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView title;
-        private final TextView author;
-        private final TextView date;
-        private final ImageView img;
-        private final TextView category;
+        private final TextView more;
 
         public WithTitleHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.tv_item_custom_with_title_title);
-            author = itemView.findViewById(R.id.tv_item_custom_with_title_publisher);
-            date = itemView.findViewById(R.id.tv_item_custom_with_title_time);
-            img = itemView.findViewById(R.id.img_item_custom_with_title);
-            category = itemView.findViewById(R.id.tv_item_custom_with_title_category_title);
+            title = itemView.findViewById(R.id.tv_category_title_title);
+            more = itemView.findViewById(R.id.tv_category_title_more);
             itemView.setOnClickListener(this);
         }
 
@@ -243,6 +199,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    class HeaderHolder extends RecyclerView.ViewHolder{
+
+        private final LinearLayout mAndroid;
+        private final LinearLayout mIos;
+        private final LinearLayout mWelfare;
+        private final LinearLayout mVideo;
+        private final LinearLayout mHtml5;
+
+        public HeaderHolder(View itemView) {
+            super(itemView);
+            mAndroid = itemView.findViewById(R.id.ll_item_category_header_android);
+            mIos = itemView.findViewById(R.id.ll_item_category_header_ios);
+            mWelfare = itemView.findViewById(R.id.ll_item_category_header_welfare);
+            mVideo = itemView.findViewById(R.id.ll_item_category_header_video);
+            mHtml5 = itemView.findViewById(R.id.ll_item_category_header_html5);
+        }
+    }
+
     public void addCategoryData(CategoryData data) {
         categorydata.getResults().addAll(data.getResults());
     }
@@ -251,11 +225,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return categorydata;
     }
 
+    public void setCategorydata(CategoryData categorydata) {
+        this.categorydata = categorydata;
+    }
+
     @Override
     public int getItemViewType(int position) {
-        if (position % 10 == 0) {
+        if (position == 0) {
+            return TYPE_HEADER;
+        } else if (position % 11 == 1) {
             return TYPE_WITH_TITLE;
-        }else {
+        } else {
             return TYPE_NO_TITLE;
         }
 

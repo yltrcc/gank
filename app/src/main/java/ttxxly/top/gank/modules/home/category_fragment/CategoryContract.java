@@ -17,6 +17,8 @@ public class CategoryContract {
     interface View extends BaseView {
         void initData(CategoryData categorydata);
         void addData(CategoryData categoryData);
+        CategoryData getData();
+        void setData(CategoryData categoryData);
     }
 
     interface Presenter extends BasePresenter {

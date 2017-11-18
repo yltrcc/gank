@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ttxxly.top.gank.R;
+import ttxxly.top.gank.modules.about.AboutActivity;
 import ttxxly.top.gank.modules.home.category_fragment.CategoryFragment;
 import ttxxly.top.gank.modules.home.home_fragment.HomeFragment;
 import ttxxly.top.gank.modules.search.SearchActivity;
@@ -136,6 +137,7 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.nav_girls:
                         break;
                     case R.id.nav_about:
+                        startActivity(new Intent(getApplicationContext(), AboutActivity.class));
                         break;
                     default:
                         break;
