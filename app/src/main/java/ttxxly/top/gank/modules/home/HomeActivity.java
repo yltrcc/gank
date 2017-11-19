@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -70,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     private ArrayList<android.support.v4.app.Fragment> list;
     private ImageView search;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,10 @@ public class HomeActivity extends AppCompatActivity {
         //设置ViewPager
         mHomePage = findViewById(R.id.home_page);
         vp_home = findViewById(R.id.vp_home);
+
+        //设置tablayout
+        tabLayout = findViewById(R.id.tabLayout_home_page);
+        tabLayout.setupWithViewPager(vp_home);
         list = new ArrayList<>();
         list.add(new HomeFragment());
         list.add(new CategoryFragment());

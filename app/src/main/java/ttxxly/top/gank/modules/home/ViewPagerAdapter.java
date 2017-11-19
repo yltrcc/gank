@@ -10,6 +10,7 @@ import java.util.List;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> data;
+    private String[] titles = {"推荐", "所有"};
 
     public ViewPagerAdapter(FragmentManager fm, List<Fragment> data) {
         super(fm);
@@ -31,5 +32,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {//销毁子View
         super.destroyItem(container, position, object);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titles[position];
     }
 }

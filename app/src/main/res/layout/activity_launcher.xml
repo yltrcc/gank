@@ -10,16 +10,17 @@
         android:id="@+id/iv_launcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@mipmap/timg"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="gank"
+        android:text="干 货 集 中 营"
         android:textColor="#FFFFFF"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:textSize="20sp" />
+        android:layout_marginBottom="40dp"
+        android:textSize="25sp" />
 
 </RelativeLayout>

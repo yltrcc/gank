@@ -1,6 +1,8 @@
 package ttxxly.top.gank.modules.home.category_fragment;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import retrofit2.http.HEAD;
 import ttxxly.top.gank.R;
 import ttxxly.top.gank.entity.CategoryData;
+import ttxxly.top.gank.modules.category.CategoryActivity;
 
 /**
  * Description:
@@ -35,6 +38,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static int TYPE_NO_TITLE = 0;
     private static int TYPE_WITH_TITLE = 1;
     private static int TYPE_HEADER = 3;
+    private String ANDROID = "Android";
+    private String IOS = "iOS";
+    private String WELFARE = "福利";
+    private String VIDEO = "休息视频";
+    private String HTML5 = "前端";
 
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -58,12 +66,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     mContainer.getContext()).inflate(R.layout.item_category_body, parent,
                     false);
             return new NoTitleHolder(view);
-        }else if (viewType == TYPE_WITH_TITLE) {
+        } else if (viewType == TYPE_WITH_TITLE) {
             View view = LayoutInflater.from(
                     mContainer.getContext()).inflate(R.layout.item_category_title, parent,
                     false);
             return new WithTitleHolder(view);
-        }else if (viewType == TYPE_HEADER) {
+        } else if (viewType == TYPE_HEADER) {
             View view = LayoutInflater.from(
                     mContainer.getContext()).inflate(R.layout.item_category_header, parent,
                     false);
@@ -75,7 +83,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.i("position"+position, ""+categorydata.getResults().get(position).getDesc());
+        Log.i("position" + position, "" + categorydata.getResults().get(position).getDesc());
         if (holder instanceof NoTitleHolder) {
             NoTitleHolder notitleHolder = (NoTitleHolder) holder;
             //绑定数据
@@ -101,47 +109,116 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 notitleHolder.date.setText("null");
             }
             if (!categorydata.getResults().get(position).isEmptyImg()) {
+                notitleHolder.img.setVisibility(View.VISIBLE);
                 String url = categorydata.getResults().get(position).getImages().get(0);
-                flag = false;
                 try {
                     Picasso.with(mContainer.getContext())
                             .load(url)
+                            .placeholder(R.mipmap.ic_launcher)
+                            .error(R.mipmap.ic_launcher)
                             .into(notitleHolder.img, new Callback() {
                                 @Override
                                 public void onSuccess() {
                                     Log.i("启动页图片", "成功");
-                                    flag = true;
                                 }
 
                                 @Override
                                 public void onError() {
                                     Log.i("启动页图片", "失败1");
-                                    flag = false;
                                 }
                             });
                 } catch (Exception e) {
                     Log.i("启动页图片", "失败2");
-                    flag = false;
-                }
-                if (flag) {
-                    notitleHolder.img.setVisibility(View.VISIBLE);
                 }
             }
-        }else if (holder instanceof WithTitleHolder) {
+        } else if (holder instanceof WithTitleHolder) {
+            String title = null;
             WithTitleHolder withTitleHolder = (WithTitleHolder) holder;
             if (!categorydata.getResults().get(position).isEmptyTitle()) {
-                Log.i("title", categorydata.getResults().get(position).getDesc());
-                withTitleHolder.title.setText(categorydata.getResults().get(position).getDesc());
+                title = categorydata.getResults().get(position).getDesc();
+                Log.i("title", title);
+                withTitleHolder.title.setText(title);
             } else {
-                withTitleHolder.title.setText("It doesn't seem to have a title");
+                title = "It doesn't seem to have a title";
+                withTitleHolder.title.setText(title);
             }
-        }else if (holder instanceof HeaderHolder) {
+            final String finalTitle = title;
+            withTitleHolder.more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ANDROID.equals(finalTitle)) {
+                        Intent intent = new Intent(mContainer.getContext(), CategoryActivity.class);
+                        intent.putExtra("title", ANDROID);
+                        mContainer.getContext().startActivity(intent);
+                    } else if (IOS.equals(finalTitle)) {
+                        Intent intent = new Intent(mContainer.getContext(), CategoryActivity.class);
+                        intent.putExtra("title", IOS);
+                        mContainer.getContext().startActivity(intent);
+                    } else if (WELFARE.equals(finalTitle)) {
+                        Intent intent = new Intent(mContainer.getContext(), CategoryActivity.class);
+                        intent.putExtra("title", WELFARE);
+                        mContainer.getContext().startActivity(intent);
+                    } else if (VIDEO.equals(finalTitle)) {
+                        Intent intent = new Intent(mContainer.getContext(), CategoryActivity.class);
+                        intent.putExtra("title", VIDEO);
+                        mContainer.getContext().startActivity(intent);
+                    } else if (HTML5.equals(finalTitle)) {
+                        Intent intent = new Intent(mContainer.getContext(), CategoryActivity.class);
+                        intent.putExtra("title", HTML5);
+                        mContainer.getContext().startActivity(intent);
+                    }
+                }
+            });
+        } else if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
             headerHolder.mAndroid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(mContainer.getContext(), "Android",
                             Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContainer.getContext(), CategoryActivity.class);
+                    intent.putExtra("title", "Android");
+                    mContainer.getContext().startActivity(intent);
+                }
+            });
+            headerHolder.mIos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContainer.getContext(), "Ios",
+                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContainer.getContext(), CategoryActivity.class);
+                    intent.putExtra("title", IOS);
+                    mContainer.getContext().startActivity(intent);
+                }
+            });
+            headerHolder.mWelfare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContainer.getContext(), "Welfare",
+                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContainer.getContext(), CategoryActivity.class);
+                    intent.putExtra("title", WELFARE);
+                    mContainer.getContext().startActivity(intent);
+                }
+            });
+            headerHolder.mVideo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContainer.getContext(), "Video",
+                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContainer.getContext(), CategoryActivity.class);
+                    intent.putExtra("title", VIDEO);
+                    mContainer.getContext().startActivity(intent);
+                }
+            });
+            headerHolder.mHtml5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContainer.getContext(), "Html5",
+                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContainer.getContext(), CategoryActivity.class);
+                    intent.putExtra("title", HTML5);
+                    mContainer.getContext().startActivity(intent);
                 }
             });
         }
@@ -150,7 +227,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        Log.i("size", categorydata.getResults().size()+"");
+        Log.i("size", categorydata.getResults().size() + "");
         return categorydata.getResults().size();
     }
 
@@ -179,7 +256,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    class WithTitleHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class WithTitleHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
         private final TextView more;
@@ -188,18 +265,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             title = itemView.findViewById(R.id.tv_category_title_title);
             more = itemView.findViewById(R.id.tv_category_title_more);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (mOnItemClickListener != null) {
-                mOnItemClickListener.onClick(v, getAdapterPosition());
-            }
         }
     }
 
-    class HeaderHolder extends RecyclerView.ViewHolder{
+    class HeaderHolder extends RecyclerView.ViewHolder {
 
         private final LinearLayout mAndroid;
         private final LinearLayout mIos;

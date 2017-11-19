@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Callback;
@@ -29,6 +30,8 @@ public class LauncherActivity extends AppCompatActivity implements LauncherContr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_launcher);
         mIvLauncher = findViewById(R.id.iv_launcher);
         mPresenter.start();
@@ -46,37 +49,18 @@ public class LauncherActivity extends AppCompatActivity implements LauncherContr
 
     @Override
     public void loadImg(String url) {
-        try {
-            Picasso.with(this)
-                    .load(url)
-                    .into(mIvLauncher, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Log.i("启动页图片", "成功");
-                            Handler handler = new Handler();
-                            //1.5 秒后執行
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (!isResume) {
-                                        finish();
-                                        return;
-                                    }
-                                    goHomeActivity();
-                                }
-                            }, 1500);
-                        }
-
-                        @Override
-                        public void onError() {
-                            Log.i("启动页图片", "失败1");
-                            goHomeActivity();
-                        }
-                    });
-        } catch (Exception e) {
-            Log.i("启动页图片", "失败2");
-            goHomeActivity();
-        }
+        Handler handler = new Handler();
+        //1.5 秒后執行
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!isResume) {
+                    finish();
+                    return;
+                }
+                goHomeActivity();
+            }
+        }, 1500);
     }
 
     @Override

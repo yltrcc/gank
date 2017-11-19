@@ -168,6 +168,8 @@ public class WebActivity extends AppCompatActivity implements WebContract.View {
         mWeb.getSettings().setAppCacheEnabled(false);
         //清空缓存
         mWeb.clearCache(true);
+        mWeb.getSettings().setUseWideViewPort(true);
+        mWeb.getSettings().setLoadWithOverviewMode(true);
         //根据类型来加载 html 内容， 因为可能是 HTML 文件， 也可能是 URL
         if (type == 0) {
             content = getHtmlData(content);
