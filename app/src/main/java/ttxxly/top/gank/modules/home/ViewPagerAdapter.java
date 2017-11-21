@@ -10,7 +10,7 @@ import java.util.List;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> data;
-    private String[] titles = {"推荐", "所有"};
+    private String[] titles = {"推荐", "所有", "妹子"};
 
     public ViewPagerAdapter(FragmentManager fm, List<Fragment> data) {
         super(fm);

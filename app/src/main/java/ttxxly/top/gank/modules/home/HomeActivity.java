@@ -23,6 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import ttxxly.top.gank.R;
 import ttxxly.top.gank.modules.about.AboutActivity;
 import ttxxly.top.gank.modules.home.category_fragment.CategoryFragment;
+import ttxxly.top.gank.modules.home.girls_fragment.GirlsFragment;
 import ttxxly.top.gank.modules.home.home_fragment.HomeFragment;
 import ttxxly.top.gank.modules.search.SearchActivity;
 
@@ -111,6 +112,7 @@ public class HomeActivity extends AppCompatActivity {
         list = new ArrayList<>();
         list.add(new HomeFragment());
         list.add(new CategoryFragment());
+        list.add(new GirlsFragment());
         vp_home.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), list));
     }
 
