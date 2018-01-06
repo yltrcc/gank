@@ -50,24 +50,7 @@ public class GirlActivity extends AppCompatActivity {
 
     public void loadImg() {
 
-        Target target = new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                mRoot.setBackground(new BitmapDrawable(getResources(), bitmap));
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-                Toast.makeText(getApplicationContext(), "妹子获取失败了！！！！",
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-        };
-        Picasso.with(this).load(url).into(target);
+        mRoot.setBackgroundResource(R.mipmap.timg);
 
     }
 }
