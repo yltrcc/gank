@@ -98,7 +98,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
                 });
     }
 
-    public CategoryData.ResultsBean addBean(int tp) {
+    private CategoryData.ResultsBean addBean(int tp) {
         CategoryData.ResultsBean rb = new CategoryData.ResultsBean();
         rb.setDesc(title[tp]);
         rb.setCreatedAt("1");
