@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+
+    <!--标题栏的颜色-->
+    <color name="colorPrimary">#FFFFFF</color>
+    <!--状态栏的颜色-->
+    <color name="colorPrimaryDark">#336666</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorToolBar">#336666</color>
 </resources>
