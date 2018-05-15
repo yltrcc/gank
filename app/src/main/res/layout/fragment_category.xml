@@ -7,8 +7,6 @@
     tools:context="ttxxly.top.gank.modules.home.category_fragment.CategoryFragment">
 
 
-
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_fragment_category"
         android:layout_width="match_parent"
