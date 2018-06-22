@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import ttxxly.top.gank.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 妹子分类的界面
  */
 public class GirlsFragment extends Fragment {
 
